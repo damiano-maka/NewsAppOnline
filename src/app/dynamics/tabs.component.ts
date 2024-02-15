@@ -35,49 +35,6 @@ import { RouterLink } from '@angular/router';
 })
 export class TabsComponent {
   @Output() category = new EventEmitter<string>();
-  isOpen = false; // Keep track of dropdown state
-
-  toggleDropdown() {
-    this.isOpen = !this.isOpen; // Toggle state on click
-  }
-  categorieNotizie1: string[] = [
-    'politica',
-    'economia',
-    'tecnologia',
-    'sport',
-    'cultura',
-    'scienza',
-    'salute',
-    'intrattenimento',
-    'ambiente',
-    'viaggi',
-    'moda',
-    'cucina',
-    'auto',
-    'musica',
-    'arte',
-    'letteratura',
-    'religione',
-    'educazione',
-    'lavoro',
-    'famiglia',
-    'teatro',
-    'cinema',
-    'fotografia',
-    'astrologia',
-    'fumetti',
-    'giornalismo',
-    'storia',
-    'televisione',
-    'umorismo',
-    'tecnologia',
-    'lifestyle',
-    'design',
-    'architettura',
-    'politica internazionale',
-    'economia globale'
-  ];
-  
 
   categorieNotizie: any[] = [
     { nome: 'Politica', sottocategorie: ['Governo', 'Parlamento', 'Elezioni', 'Partiti'] },
@@ -111,43 +68,3 @@ export class TabsComponent {
   ];
   
 }
-/*   <ul class="nav nav-tabs text-center scroll mb-3 pointer">
-
-  @for (notizia of categorieNotizie; track $index) {
-    <li class="nav-item">
-    <a class="nav-link" routerLinkActive="active"
-     routerLink="/" [queryParams]="{ c: notizia }"
-     (click)="category.emit(notizia)" >{{ notizia.charAt(0).toUpperCase() + notizia.slice(1) }}</a>
-  </li>
-  }  
-</ul>
-  <hr/> */
-
-  /* 
-<ul class="nav nav-tabs text-center scroll mb-3 pointer">
-  <li class="nav-item" *ngFor="let categoria of categorieNotizie; let i = index">
-
-    <ng-container *ngIf="categoria.sottocategorie && categoria.sottocategorie.length > 0">
-      <div class="dropdown">
-        <button class="btn btn-link dropdown-toggle" type="button" id="categoriaDropdown{{i}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ categoria.nome }}
-        </button>
-        <div class="dropdown-menu" >
-          <a *ngFor="let sottocategoria of categoria.sottocategorie" class="dropdown-item" routerLink="/" [queryParams]="{ c: sottocategoria }" (click)="category.emit(sottocategoria)">
-            {{ sottocategoria }}
-          </a>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="!categoria.sottocategorie">
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/" [queryParams]="{ c: categoria.nome }" (click)="category.emit(categoria.nome)">
-          {{ categoria.nome.charAt(0).toUpperCase() + categoria.nome.slice(1) }}
-        </a>
-      </li>
-    </ng-container>
-    
-  </li>
-</ul>
-<hr/> */
