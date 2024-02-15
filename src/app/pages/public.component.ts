@@ -1,68 +1,80 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Input,
   OnInit,
   inject,
   signal,
 } from '@angular/core';
 import { NewsService } from '../services/news.service';
 import { NewsCardComponent } from '../dynamics/news-card.component';
-import { Article } from '../services/news.model';
-import { filter, map } from 'rxjs';
-import { NewsCardd } from './comp';
-
-import { bootstrapApplication } from '@angular/platform-browser';
+import { Article } from '../models/news.model';
+import { FooterComponent } from '../dynamics/footer.component';
+import { Router, RouterLink } from '@angular/router';
 import 'zone.js';
+import { LoaderComponent } from '../dynamics/loader.component';
+import { TabsComponent } from '../dynamics/tabs.component';
+
 @Component({
   selector: 'app-public',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NewsCardComponent,NewsCardd],
+  imports: [NewsCardComponent,LoaderComponent,
+    FooterComponent,RouterLink,TabsComponent
+    ],
   template: `
-  <!-- <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 p-2 ">
-    @for (item of news(); track $index) {
-      <app-news-card [n]="item" (cardClicked)="log($event)"/>
+
+  <app-tabs (category)="updateCategory($event)" />
+  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 p-2 ">
+    @for(news of news(); track $index){
+      <app-news-card [news]="news" (cardClicked)="log($event)" />
     }
-  </div>   
-  @for(news of news(); track $index){
-      <app-news-card [n]="news" (cardClicked)="log($event)"/>
-    }-->
+  </div>
+ <!--  <app-footer/>
+ -->
 
-
-
-    
-    
+  
   `,
-  styles: ``
+  styles:[`
+  .scroll{
+    overflow-y: hidden;
+    overflow-x: scroll;
+    display: flex;
+  }
+  `]
 })
 export default class PublicComponent implements OnInit {
   
-  
-  
-  
-  
-  
-  
-  
-  
-  news = signal<any | undefined>(undefined);
+  news = signal<Article[]>([]);
   newsService = inject(NewsService);
+  router = inject(Router);
   n = {
-    categoria : "italia",
+    categoria : "Italia",
     lingua : "it",
-    size : 10
-  }
-  ngOnInit(): void {
-   /*  this.newsService.getHeadLines(this.n.categoria, this.n.lingua , this.n.size)
-    .pipe(
-      map(news => news.articles),
-      filter(article => article.urlToImage !== null)
-    )
-    .subscribe((data : any) => {
-      console.log(data);
-      this.news.set(data) 
-    }); */
+    size : 30
   }
 
+  log(data : Article){
+    this.router.navigate(['/notizia'], { queryParams: { article: JSON.stringify(data) } });
+  }
+ 
+
+  updateCategory(newCategory: string) {
+    this.n.categoria = newCategory;
+    this.newsService.getHeadLines(this.n.categoria, this.n.lingua, this.n.size)
+      .subscribe(
+        (data) => {
+          const datas = data.articles;
+          this.news.set(datas);
+        },
+        () => {
+
+        }
+      );
+  }
+
+  ngOnInit(): void {
+    this.updateCategory(this.n.categoria); 
+  }
 
 }

@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-.pointerr{
+html,body{
+    background-color: #343a40 !important;
+    font-family: 'Times New Roman', Times, serif !important;
+}
+.pointer{
     cursor:pointer !important;
 }
+
+.underline{
+    text-decoration: underline;
+}
+
+
+

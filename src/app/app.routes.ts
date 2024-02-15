@@ -5,5 +5,11 @@ export const routes: Routes = [
     {
         path: 'public',
         loadComponent: () => import('./pages/public.component'),
-      }
+    },
+    {
+      path: 'notizia',
+      loadComponent: () => import('./pages/notizia.component'),
+    },
+    { path: '**', redirectTo: 'public', pathMatch: 'full' },
+
 ];
