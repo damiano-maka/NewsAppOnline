@@ -21,7 +21,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
  [show]="6"
  [url]="''"
  [title]="'Il Mio Giornale'"
- [image]="''"
+ [image]="'https://news-app-online.vercel.app/assets/newsIcon.png'"
  [description]="'Le ultime notizie in Italia :D'"
  [tags]="'#ultime #notizie #Italia'"
  [autoSetMeta]="false"
